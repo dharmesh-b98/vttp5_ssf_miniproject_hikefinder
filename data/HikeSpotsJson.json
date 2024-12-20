@@ -1,0 +1,23 @@
+[
+    {
+      "lat": "1.3458907978506407",
+      "lng": "103.82251384134332",
+      "name": "MacRitchie Reservoir",
+      "description": "MacRitchie Reservoir, located in central Singapore, is the island's oldest reservoir, built in 1868. Surrounded by lush rainforest, it offers a serene escape from the city's hustle and bustle. The reservoir features a variety of outdoor activities, including walking and jogging trails, canoeing, and kayaking. Its iconic TreeTop Walk, a 250-meter suspension bridge, provides stunning views of the forest canopy. Home to diverse wildlife, including monkeys and birds, MacRitchie is a popular destination for nature lovers and fitness enthusiasts. The reservoir is an integral part of Singapore's water supply and conservation efforts.",
+      "visitList": "[]"
+    },
+    {
+      "lat": "1.348636703325579",
+      "lng": "103.77671469419536",
+      "name": "Bukit Timah Nature Reserve",
+      "description": "Bukit Timah Nature Reserve, located in central Singapore, is a 163-hectare protected area known for its rich biodiversity and natural beauty. Home to Singapore's highest hill, Bukit Timah Hill, which rises 163 meters, the reserve features a network of hiking trails through lush tropical rainforest. It is a haven for various wildlife, including monkeys, birds, and reptiles, and is one of the last remnants of Singapore's primary rainforest. The reserve offers an educational experience with its diverse flora and fauna, making it a popular spot for nature lovers, hikers, and those seeking tranquility in the heart of the city.",
+      "visitList": "[]"
+    },
+    {
+      "lat": "1.3395413426383924",
+      "lng": "103.78026582318077",
+      "name": "Rail Corridor",
+      "description": "The Rail Corridor, stretching over 24 kilometers from Tanjong Pagar to Woodlands, is a revitalized green space in Singapore that traces the route of the former KTM railway line. It offers a unique blend of nature, history, and heritage, as it passes through diverse landscapes, including forests, open fields, and urban areas. The corridor is dotted with historical landmarks, such as old railway stations and bridges, providing a glimpse into Singapore's past. Popular for walking, cycling, and recreational activities, the Rail Corridor is a symbol of sustainable urban development, seamlessly integrating green spaces with the city’s modern infrastructure.",
+      "visitList": "[]"
+    }
+  ]

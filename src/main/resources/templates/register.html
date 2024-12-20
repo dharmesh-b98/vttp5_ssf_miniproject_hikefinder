@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    </head>
+
+    <body>
+    
+        <h1 class="text-center">Registration Page</h1>
+        <form method="POST" data-th-action="@{/register}" data-th-object="${appUser}">
+            <!--username-->
+            <label for = "userName", class = "form-label"> Username: </label>
+            <input id="userName" name = "userName" data-th-field = *{userName}
+            type = "text"
+            class = "form-control"> <!--name is for key value pair, field is to link to person object-->
+
+            <p data-th-if = "${#fields.hasErrors('userName')}"
+                data-th-errors = "*{userName}"
+                data-th-errorclass = "error"></p> <!--error class is css stuff, can remove-->
+
+
+            <!--password-->
+            <label for = "password", class = "form-label"> Password: </label>
+            <input id="password" name = "password" data-th-field = *{password}
+            type = "password"
+            class = "form-control">
+
+            <p data-th-if = "${#fields.hasErrors('password')}"
+                data-th-errors = "*{password}"
+                data-th-errorclass = "error"></p> <!--error class is css stuff, can remove-->
+
+
+            <!--submit-->
+            <button type = "submit" class = "btn btn-primary">Register</button>
+        </form>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+            crossorigin="anonymous"></script>
+
+    </body>
+
+</html>

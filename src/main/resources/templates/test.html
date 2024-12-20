@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auto-Populate End Date</title>
+  <script>
+    // Function to fetch the calculated end date from the server
+    async function fetchEndDate() {
+      const startDateInput = document.getElementById("startDate");
+      const endDateInput = document.getElementById("endDate");
+
+      const startDate = startDateInput.value;
+      if (!startDate) return; // Ensure the start date is not empty
+
+      try {
+        const response = await fetch(`/calculate-end-date?startDate=${startDate}`);
+        if (!response.ok) throw new Error("Error fetching end date");
+
+        const data = await response.json();
+        endDateInput.value = data.endDate; // Populate the end date
+      } catch (error) {
+        console.error("Failed to fetch end date:", error);
+        endDateInput.value = ""; // Clear the end date on error
+      }
+    }
+  </script>
+</head>
+<body>
+  <form id="dateForm">
+    <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate" name="startDate" required onchange="fetchEndDate()">
+
+    <label for="endDate">End Date:</label>
+    <input type="date" id="endDate" name="endDate" required readonly>
+
+    <button type="submit">Submit</button>
+  </form>
+</body>
+</html>
