@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jakarta.json.*;
+import jakarta.servlet.http.HttpSession;
 import vttp5_ssf_miniproject_HikeFinder.vttp5_ssf_miniproject_HikeFinder.model.AppUser;
 import vttp5_ssf_miniproject_HikeFinder.vttp5_ssf_miniproject_HikeFinder.repo.HashRepo;
 import vttp5_ssf_miniproject_HikeFinder.vttp5_ssf_miniproject_HikeFinder.repo.ValueRepo;
@@ -21,6 +22,19 @@ public class UserService {
 
     @Autowired
     ValueRepo userValueRepo;
+
+    public String checkLogin(String userName, HttpSession session){
+        String sessionUserName = (String) session.getAttribute("userName");
+        if (sessionUserName == null){
+            return "0";
+        }   
+        if (!sessionUserName.equals(userName)){
+            return "1";
+        }
+        return "2";
+    }
+
+
 
     public void saveUser(AppUser appUser){
         JsonObject userJson = convertUsertoJson(appUser);

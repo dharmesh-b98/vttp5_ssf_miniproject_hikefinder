@@ -42,6 +42,7 @@ public class HostedHikesController {
         
         Hike hike = new Hike();
         hike.setHost(userName);
+        hike.setHikeSpotName(hikeSpotName);
         List<String> usersJoined = hike.getUsersJoined();
         usersJoined.add(userName);
         hike.setUsersJoined(usersJoined);
@@ -53,6 +54,7 @@ public class HostedHikesController {
         HikeSpot hikeSpot = hikeSpotService.getHikeSpot(hikeSpotName);
         session.setAttribute("lat", hikeSpot.getLat().toString());
         session.setAttribute("lng", hikeSpot.getLng().toString());
+        session.setAttribute("timeZone", hikeSpot.getTimeZone());
         return "addhikeform";
     }
 
@@ -72,5 +74,21 @@ public class HostedHikesController {
 
         hikeService.saveHike(hike);
         return "redirect:/";
+    }
+
+
+    @GetMapping("{userName}/hostedHikeList")
+    public String gethostedHikeList(@PathVariable("userName") String userName, HttpSession session, Model model){
+        String sessionUserName = (String) session.getAttribute("userName");
+        if (sessionUserName == null){
+            return "redirect:/";
+        }   
+        if (!sessionUserName.equals(userName)){
+            return "redirect:/";
+        }
+
+        List<Hike> hikeList = hikeService.getHikeList();
+        model.addAttribute("hikeList", hikeList);
+        return "hostedhikelist";
     }
 }

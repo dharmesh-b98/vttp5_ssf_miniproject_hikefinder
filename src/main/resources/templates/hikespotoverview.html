@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+
+        <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFwk8WhPZ2hVOGvPLxxCwKCQNibZ2yr3Q&callback=initMap"
+            defer>
+        </script>
+
+        <style>
+            /* General Styles */
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f8f9fa;
+            }
+
+            h1 {
+                text-align: center;
+                margin-top: 20px;
+                color: #2c3e50;
+            }
+
+            #map-container {
+                margin: 20px auto;
+                height: 400px;
+                width: 90%;
+                max-width: 1200px;
+                border: 2px solid #ddd;
+                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+                border-radius: 8px;
+            }
+
+            #hikespotlist {
+                margin: 20px auto;
+                width: 90%;
+                max-width: 1200px;
+                height: 400px;
+                overflow: scroll;
+            }
+
+            /* Table Styles */
+            #hikespotlist table {
+                width: 100%;
+                border-collapse: collapse;
+                border: 1px solid #ddd;
+                background-color: #fff;
+            }
+
+            #hikespotlist th, #hikespotlist td {
+                border: 1px solid #ddd;
+                padding: 10px;
+                text-align: left;
+            }
+
+            #hikespotlist th {
+                background-color: #2c3e50;
+                color: #fff;
+                text-transform: uppercase;
+            }
+
+            #hikespotlist tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+            #hikespotlist tr:hover {
+                background-color: #eaeaea;
+            }
+        </style>
+    </head>
+
+    <body>
+    
+        <h1 class="text-center">Hike Spots</h1>
+        <section>
+            <div id="map-container">
+
+                <gmp-map
+                    center="1.3521,103.8198"
+                    zoom="2"
+                    map-id="worldhikespots"
+                >
+                    <div data-th-each="hikeSpot : ${hikeSpotList}">
+                        <gmp-advanced-marker
+                            data-th-position="${hikeSpot.getLatLngString()}" 
+                            data-th-title="${hikeSpot.name}"
+                        ></gmp-advanced-marker>
+                    <div>
+                </gmp-map>
+            </div>
+        </section>
+        
+        <section>
+            <div id="hikespotlist">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Country</th>
+                            <th>Spot Name</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        <tr data-th-each="hikeSpot : ${hikeSpotList}">
+                            <td data-th-text="${hikeSpot.country}"></td>
+                            <td data-th-text="${hikeSpot.name}"></td>
+                            <td data-th-text="${hikeSpot.description}"></td>
+                            <td><a data-th-href="@{/hostedhikes/{userName}/addHike/{hikeSpotName}(userName = ${userName}, hikeSpotName = ${hikeSpot.name})}">Host Hike</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+
+        <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFwk8WhPZ2hVOGvPLxxCwKCQNibZ2yr3Q&libraries=maps,marker&v=beta"
+            defer
+        ></script>
+
+    </body>
+
+</html>

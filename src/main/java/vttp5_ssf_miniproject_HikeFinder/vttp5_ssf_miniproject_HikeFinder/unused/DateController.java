@@ -1,4 +1,4 @@
-package vttp5_ssf_miniproject_HikeFinder.vttp5_ssf_miniproject_HikeFinder.controller;
+package vttp5_ssf_miniproject_HikeFinder.vttp5_ssf_miniproject_HikeFinder.unused;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;

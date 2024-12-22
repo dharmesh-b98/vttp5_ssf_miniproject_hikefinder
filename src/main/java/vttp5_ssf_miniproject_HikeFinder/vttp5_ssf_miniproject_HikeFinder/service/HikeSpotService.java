@@ -56,17 +56,18 @@ public class HikeSpotService {
         Double lng = Double.parseDouble(hikeSpotJson.getString("lng"));
         String name = hikeSpotJson.getString("name");
         String description = hikeSpotJson.getString("description");
+        String country = hikeSpotJson.getString("country");
+        String timeZone = hikeSpotJson.getString("timeZone");
+
         List<String> visitorList = new ArrayList<>();
-        
         String [] visitorListString = hikeSpotJson.getString("visitList").replace("[","").replace("]","").split(",");
         for (String visitorString : visitorListString ){
             visitorList.add(visitorString);
         }
 
-        HikeSpot hikeSpot = new HikeSpot(lat, lng, name, description, visitorList);
+        HikeSpot hikeSpot = new HikeSpot(lat, lng, name, description,country,timeZone,visitorList);
         return hikeSpot;
     }
-
 
 
     //initialising HikeSpots

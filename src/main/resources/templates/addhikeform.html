@@ -14,19 +14,22 @@
             async function fetchSunriseTime() {
                 const dateTimeInput = document.getElementById("dateTime");
                 const sunriseTimeInput = document.getElementById("sunriseTime");
+                const sunsetTimeInput = document.getElementById("sunsetTime");
         
                 const dateTime = dateTimeInput.value;
                 if (!dateTime) return; // Ensure the dateTime is not empty
         
                 try {
-                const response = await fetch(`/calculate-sunrise-time?dateTime=${encodeURIComponent(dateTime)}`);
-                if (!response.ok) throw new Error("Error fetching sunrise time");
+                const response = await fetch(`/getSunTimings?dateTime=${encodeURIComponent(dateTime)}`);
+                if (!response.ok) throw new Error("Error fetching sun time");
         
                 const data = await response.json();
                 sunriseTimeInput.value = data.sunriseTime; // Populate the sunrise time
+                sunsetTimeInput.value = data.sunsetTime; // Populate the sunrise time
                 } catch (error) {
-                console.error("Failed to fetch sunrise time:", error);
-                sunriseTimeInput.value = ""; // Clear the sunrise time on error
+                console.error("Failed to fetch sun time:", error);
+                sunriseTimeInput.value = ""; // Clear the suntime on error
+                sunsetTimeInput.value = ""; // Clear the suntime on error
                 }
             }
             </script>
@@ -37,26 +40,30 @@
         <h1 class="text-center">Add Hike</h1>
         <form method="POST" data-th-action="@{/hostedhikes/{userName}/addHike/{hikeSpotName}(userName=${userName},hikeSpotName=${hikeSpotName})}" data-th-object="${hike}">
             <!--id-->
-            <label for = "id" class = "form-label"> Id: </label>
+            <label for = "id" class = "form-label"></label>
             <input id="id" name = "id" data-th-field = *{id}
             type = "text"
-            class = "form-control"> <!--name is for key value pair, field is to link to person object-->
+            class = "form-control"
+            hidden> <!--name is for key value pair, field is to link to person object-->
 
             <p data-th-if = "${#fields.hasErrors('id')}"
                 data-th-errors = "*{id}"
                 data-th-errorclass = "error"></p> <!--error class is css stuff, can remove-->
 
 
+
             <!--host-->
             <label for = "host" class = "form-label"> Host: </label>
             <input id="host" name = "host" data-th-field = *{host}
             type = "text"
-            class = "form-control">
+            class = "form-control"
+            readonly>
 
             <p data-th-if = "${#fields.hasErrors('host')}"
                 data-th-errors = "*{host}"
                 data-th-errorclass = "error"></p> <!--error class is css stuff, can remove-->
             
+
 
             <!--hikeSpotName-->
             <label for = "hikeSpotName" class = "form-label"> HikeSpot: </label>
@@ -67,6 +74,7 @@
             <p data-th-if = "${#fields.hasErrors('hikeSpotName')}"
                 data-th-errors = "*{hikeSpotName}"
                 data-th-errorclass = "error"></p> <!--error class is css stuff, can remove-->
+
 
 
             <!--dateTime-->
@@ -81,6 +89,7 @@
                 data-th-errorclass = "error"></p> <!--error class is css stuff, can remove-->
 
 
+
             <!--sunriseTime-->
             <label for = "sunriseTime" class = "form-label"> Sunrise Time: </label>
             <input id="sunriseTime" name = "sunriseTime" data-th-field = *{sunriseTime}
@@ -93,23 +102,26 @@
                 data-th-errorclass = "error"></p> <!--error class is css stuff, can remove-->
 
 
+
             <!--sunsetTime-->
             <label for = "sunsetTime" class = "form-label"> Sunset Time: </label>
             <input id="sunsetTime" name = "sunsetTime" data-th-field = *{sunsetTime}
             type = "datetime-local"
-            class = "form-control">
+            class = "form-control"
+            readonly>
 
             <p data-th-if = "${#fields.hasErrors('sunsetTime')}"
                 data-th-errors = "*{sunsetTime}"
                 data-th-errorclass = "error"></p> <!--error class is css stuff, can remove-->
 
 
+
             <!--usersJoined-->
-            <label for = "usersJoined" class = "form-label"> Users Joined: </label>
+            <label for = "usersJoined" class = "form-label"></label>
             <input id="usersJoined" name = "usersJoined" data-th-field = *{usersJoined}
             type = "text"
             class = "form-control"
-            readonly>
+            hidden>
 
             <p data-th-if = "${#fields.hasErrors('usersJoined')}"
                 data-th-errors = "*{usersJoined}"
@@ -118,7 +130,7 @@
 
             
             <!--submit-->
-            <button type = "submit" class = "btn btn-primary">Register</button>
+            <button type = "submit" class = "btn btn-primary">Host Hike</button>
         </form>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"

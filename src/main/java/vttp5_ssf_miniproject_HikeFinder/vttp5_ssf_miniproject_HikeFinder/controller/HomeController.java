@@ -32,7 +32,6 @@ public class HomeController {
 
         List<HikeSpot> hikeSpotList = hikeSpotService.getHikeSpotList();
         model.addAttribute(hikeSpotList);
-        
-        return "userhome";
+        return "hikespotoverview";
     }
 }

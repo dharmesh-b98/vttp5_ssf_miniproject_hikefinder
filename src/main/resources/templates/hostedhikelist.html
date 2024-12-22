@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+
+
+        <style>
+            /* General Styles */
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f8f9fa;
+            }
+
+            h1 {
+                text-align: center;
+                margin-top: 20px;
+                color: #2c3e50;
+            }
+
+            #hostedhikelist {
+                margin: 20px auto;
+                width: 90%;
+                max-width: 1200px;
+                height: 400px;
+                overflow: scroll;
+            }
+
+            /* Table Styles */
+            #hostedhikelist table {
+                width: 100%;
+                border-collapse: collapse;
+                border: 1px solid #ddd;
+                background-color: #fff;
+            }
+
+            #hostedhikelist th, #hikespotlist td {
+                border: 1px solid #ddd;
+                padding: 10px;
+                text-align: left;
+            }
+
+            #hostedhikelist th {
+                background-color: #2c3e50;
+                color: #fff;
+                text-transform: uppercase;
+            }
+
+            #hostedhikelist tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+            #hostedhikelist tr:hover {
+                background-color: #eaeaea;
+            }
+        </style>
+    </head>
+
+    <body>
+    
+        <h1 class="text-center">Hosted Hikes</h1>
+        
+        <section>
+            <div id="hostedhikelist">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>HikeSpot</th>
+                            <th>Time Details (In Local Time)</th>
+                            <th>Sunrise Time</th>
+                            <th>Sunset Time</th>
+                            <th>Host</th>
+                            <th>Users Joined</th>          
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        <tr data-th-each="hike : ${hikeList}">
+                            <td data-th-text="${hike.hikeSpotName}"></td>
+                            <td data-th-text="${#dates.format(hike.dateTime,'dd/MM/yyyy (hh:mm aa)')}"></td>
+                            <td data-th-text="${#dates.format(hike.sunriseTime,'dd/MM/yyyy (hh:mm aa)')}"></td>
+                            <td data-th-text="${#dates.format(hike.sunsetTime,'dd/MM/yyyy(hh:mm aa)')}"></td>
+                            <td data-th-text="${hike.host}"></td>
+                            <td>
+                                <ul data-th-each="userJoin : ${hike.usersJoined}">
+                                    <li data-th-text="${userJoin}"></li>
+                                </ul>   
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </body>
+
+</html>
