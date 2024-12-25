@@ -26,6 +26,50 @@ public class HikeSpotService {
     HashRepo hikeSpotRepo;
     
 
+    //finding center coordinate of map
+    public String getCenterCoordinates(List<HikeSpot> hikeSpotList){
+        Double latSum = 0.0;
+        Double lngSum = 0.0;
+        for (HikeSpot hikeSpot : hikeSpotList){
+            latSum += hikeSpot.getLat();
+            lngSum += hikeSpot.getLng();
+        }
+        Double latAve = latSum/hikeSpotList.size();
+        Double lngAve = lngSum/hikeSpotList.size();
+        
+        String output = String.valueOf(latAve) + "," + String.valueOf(lngAve);
+        return output;
+    }
+
+    public String getMapZoom(String filterBy){
+        if (filterBy.equals("Japan")){
+            return "4";
+        }
+        else if (filterBy.equals("India")){
+            return "3.5";
+        }
+        else if (filterBy.equals("Singapore")) {
+            return "10";
+        }
+        return "3";
+    }
+
+
+
+    //filtering hike spots by country
+    public List<HikeSpot> getFilteredHikeSpotList(String filterBy){
+        List<HikeSpot> hikeSpotList = getHikeSpotList();
+        List<HikeSpot> filteredHikeSpotList = new ArrayList<>();
+        if (filterBy.equals("Japan") || filterBy.equals("Singapore") || filterBy.equals("India")){
+            filteredHikeSpotList = hikeSpotList.stream().filter(hikeSpot -> hikeSpot.getCountry().equals(filterBy)).toList();
+        }
+        else{
+            filteredHikeSpotList = hikeSpotList.stream().toList();
+        }
+        return filteredHikeSpotList;        
+    }
+
+
     //getting hikespots from Redis
 
     public HikeSpot getHikeSpot(String hikeSpotName){
@@ -62,7 +106,7 @@ public class HikeSpotService {
         List<String> visitorList = new ArrayList<>();
         String [] visitorListString = hikeSpotJson.getString("visitList").replace("[","").replace("]","").split(",");
         for (String visitorString : visitorListString ){
-            visitorList.add(visitorString);
+            visitorList.add(visitorString.trim());
         }
 
         HikeSpot hikeSpot = new HikeSpot(lat, lng, name, description,country,timeZone,visitorList);

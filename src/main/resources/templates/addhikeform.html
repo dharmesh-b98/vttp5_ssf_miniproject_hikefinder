@@ -51,7 +51,7 @@
                 data-th-errorclass = "error"></p> <!--error class is css stuff, can remove-->
 
 
-
+                
             <!--host-->
             <label for = "host" class = "form-label"> Host: </label>
             <input id="host" name = "host" data-th-field = *{host}
@@ -61,6 +61,19 @@
 
             <p data-th-if = "${#fields.hasErrors('host')}"
                 data-th-errors = "*{host}"
+                data-th-errorclass = "error"></p> <!--error class is css stuff, can remove-->
+            
+
+
+            <!--country-->
+            <label for = "country" class = "form-label"> Country: </label>
+            <input id="country" name = "country" data-th-field = *{country}
+            type = "text"
+            class = "form-control"
+            readonly>
+
+            <p data-th-if = "${#fields.hasErrors('country')}"
+                data-th-errors = "*{country}"
                 data-th-errorclass = "error"></p> <!--error class is css stuff, can remove-->
             
 

@@ -17,26 +17,26 @@ public class AppUser {
     private String password;
     
     private String role;
-    private List<String> hikesCompleted;
+    private List<String> hostedHikes;
 
 
     public AppUser(String userName, String password) {
         this.userName = userName;
         this.password = password;
         this.role = "USER";
-        this.hikesCompleted = new ArrayList<>();
+        this.hostedHikes = new ArrayList<>();
     }
 
     public AppUser() {
         this.role = "USER";
-        this.hikesCompleted = new ArrayList<>();
+        this.hostedHikes = new ArrayList<>();
     }
 
-    public AppUser(String userName, String password, String user, List<String> hikesCompleted) {
+    public AppUser(String userName, String password, String user, List<String> hostedHikes) {
         this.userName = userName;
         this.password = password;
         this.role = user;
-        this.hikesCompleted = hikesCompleted;
+        this.hostedHikes = hostedHikes;
     }
 
     public String getUserName() {
@@ -63,13 +63,15 @@ public class AppUser {
         this.role = role;
     }
 
-    public List<String> getHikesCompleted() {
-        return hikesCompleted;
+    public List<String> getHostedHikes() {
+        return hostedHikes;
     }
 
-    public void setHikesCompleted(List<String> hikesCompleted) {
-        this.hikesCompleted = hikesCompleted;
+    public void setHostedHikes(List<String> hostedHikes) {
+        this.hostedHikes = hostedHikes;
     }
+
+    
 
 
 

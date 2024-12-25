@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -29,6 +30,9 @@ public class HostedHikesController {
     @Autowired
     HikeSpotService hikeSpotService;
 
+
+
+    //Add Hikes GET
     @GetMapping("{userName}/addHike/{hikeSpotName}")
     public String addHike(@PathVariable("userName") String userName,@PathVariable("hikeSpotName") String hikeSpotName, HttpSession session, Model model){
         String sessionUserName = (String) session.getAttribute("userName");
@@ -42,6 +46,7 @@ public class HostedHikesController {
         
         Hike hike = new Hike();
         hike.setHost(userName);
+        hike.setCountry(hikeService.getHikeCountry(hikeSpotName));
         hike.setHikeSpotName(hikeSpotName);
         List<String> usersJoined = hike.getUsersJoined();
         usersJoined.add(userName);
@@ -58,6 +63,9 @@ public class HostedHikesController {
         return "addhikeform";
     }
 
+
+
+    //Add Hikes POST
     @PostMapping("{userName}/addHike/{hikeSpotName}")
     public String addHikePost(@Valid @ModelAttribute Hike hike, BindingResult binding, @PathVariable("userName") String userName, @PathVariable("hikeSpotName") String hikeSpotName, HttpSession session){
         String sessionUserName = (String) session.getAttribute("userName");
@@ -73,12 +81,14 @@ public class HostedHikesController {
         }
 
         hikeService.saveHike(hike);
-        return "redirect:/";
+        return "redirect:/hostedhikes/" + userName + "/hostedHikeList";
     }
 
 
-    @GetMapping("{userName}/hostedHikeList")
-    public String gethostedHikeList(@PathVariable("userName") String userName, HttpSession session, Model model){
+
+    //Remove Hike GET
+    @GetMapping("{userName}/{user}/removeHike/{hikeId}")
+    public String addHikePost( @PathVariable("userName") String userName, @PathVariable("user") String user, @PathVariable("hikeId") String hikeId, HttpSession session){
         String sessionUserName = (String) session.getAttribute("userName");
         if (sessionUserName == null){
             return "redirect:/";
@@ -87,8 +97,62 @@ public class HostedHikesController {
             return "redirect:/";
         }
 
-        List<Hike> hikeList = hikeService.getHikeList();
+        Hike hike = hikeService.getHike(hikeId);
+        if (hike.getHost().equals(userName)){
+            hikeService.removeHike(hikeId);
+        }
+        
+        return "redirect:/user/" + userName + "/" + user;
+    }
+
+
+
+    //Get HikeList
+    @GetMapping("{userName}/hostedHikeList")
+    public String getHostedHikeList(@PathVariable("userName") String userName, @RequestParam(name="filterBy", defaultValue="Unfiltered") String filterBy, HttpSession session, Model model){
+        String sessionUserName = (String) session.getAttribute("userName");
+        if (sessionUserName == null){
+            return "redirect:/";
+        }   
+        if (!sessionUserName.equals(userName)){
+            return "redirect:/";
+        }
+
+        List<Hike> hikeList = hikeService.getFilteredHikeList(filterBy);
         model.addAttribute("hikeList", hikeList);
+        model.addAttribute("userName", userName);
         return "hostedhikelist";
+    }
+
+    
+
+    //Join Hike
+    @GetMapping("{userName}/join/{hikeId}")
+    public String joinHike(@PathVariable("userName") String userName, @PathVariable("hikeId") String hikeId, HttpSession session){
+        String sessionUserName = (String) session.getAttribute("userName");
+        if (sessionUserName == null){
+            return "redirect:/";
+        }   
+        if (!sessionUserName.equals(userName)){
+            return "redirect:/";
+        }
+
+        hikeService.joinHike(userName, hikeId);
+        return "redirect:/hostedhikes/"+ userName + "/hostedHikeList";    
+    }
+
+    //Unjoin Hike
+    @GetMapping("{userName}/unjoin/{hikeId}")
+    public String unjoinHike(@PathVariable("userName") String userName, @PathVariable("hikeId") String hikeId, HttpSession session){
+        String sessionUserName = (String) session.getAttribute("userName");
+        if (sessionUserName == null){
+            return "redirect:/";
+        }  
+        if (!sessionUserName.equals(userName)){
+            return "redirect:/";
+        }
+
+        hikeService.unjoinHike(userName, hikeId);
+        return "redirect:/hostedhikes/"+ userName + "/hostedHikeList";    
     }
 }

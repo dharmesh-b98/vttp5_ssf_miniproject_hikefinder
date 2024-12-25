@@ -19,6 +19,7 @@ import vttp5_ssf_miniproject_HikeFinder.vttp5_ssf_miniproject_HikeFinder.model.*
 import vttp5_ssf_miniproject_HikeFinder.vttp5_ssf_miniproject_HikeFinder.service.HikeSpotService;
 import vttp5_ssf_miniproject_HikeFinder.vttp5_ssf_miniproject_HikeFinder.service.UserService;
 
+
 @Controller
 @RequestMapping("")
 public class LoginController {
@@ -30,30 +31,39 @@ public class LoginController {
     HikeSpotService hikeSpotService;
 
 
-    //login
+    //Login GET
     @GetMapping("")
     public String showLogin() throws IOException{
-        hikeSpotService.addHikeSpots(); // REMEMBER TO CHANGE
         return "login";
     }
+    
 
+
+    //Login POST
     @PostMapping("")
     public String showLoginPost(@RequestBody MultiValueMap<String, String> loginMap, HttpSession session, Model model){
         String userName = loginMap.getFirst("userName");
         String password = loginMap.getFirst("password");
-
-        System.out.println("\n\n\n\n\n" + userName + "\n\n\n\n");
         
         if (userService.checkLoginCredentials(userName, password)){
             session.setAttribute("userName", userName );
-            System.out.println("\n\n\n\n\n Reached this point \n\n\n\n\n");
             return "redirect:/hikeSpots/"+userName+"/home";
         }
         return "redirect:/";
-        
     }
 
-    //register
+
+
+    //Logout
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "redirect:/";
+    }
+
+
+
+    //Register GET
     @GetMapping("/register")
     public String showRegister(Model model){
         AppUser appUser = new AppUser();
@@ -61,6 +71,9 @@ public class LoginController {
         return "register";
     }
 
+
+
+    //Register POST
     @PostMapping("/register")
     public String showRegisterPost(@Valid @ModelAttribute("appUser") AppUser appUser, BindingResult binding){
         if (binding.hasErrors()){

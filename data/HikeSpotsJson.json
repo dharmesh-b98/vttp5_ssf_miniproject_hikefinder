@@ -3,7 +3,7 @@
     "lat": "1.3458907978506407",
     "lng": "103.82251384134332",
     "name": "MacRitchie Reservoir",
-    "description": "MacRitchie Reservoir, located in central Singapore, is the island's oldest reservoir, built in 1868. Surrounded by lush rainforest, it offers a serene escape from the city's hustle and bustle. The reservoir features a variety of outdoor activities, including walking and jogging trails, canoeing, and kayaking. Its iconic TreeTop Walk, a 250-meter suspension bridge, provides stunning views of the forest canopy. Home to diverse wildlife, including monkeys and birds, MacRitchie is a popular destination for nature lovers and fitness enthusiasts. The reservoir is an integral part of Singapore's water supply and conservation efforts.",
+    "description": "Hiking in MacRitchie Reservoir offers a serene escape into lush rainforest trails, scenic boardwalks, and breathtaking views of calm waters. Encounter vibrant wildlife, cross the iconic TreeTop Walk, and immerse yourself in Singapore's natural beauty and tranquility.",
     "country": "Singapore",
     "timeZone": "GMT+08",
     "visitList": "[]"
@@ -12,7 +12,7 @@
     "lat": "1.348636703325579",
     "lng": "103.77671469419536",
     "name": "Bukit Timah Nature Reserve",
-    "description": "Bukit Timah Nature Reserve, located in central Singapore, is a 163-hectare protected area known for its rich biodiversity and natural beauty. Home to Singapore's highest hill, Bukit Timah Hill, which rises 163 meters, the reserve features a network of hiking trails through lush tropical rainforest. It is a haven for various wildlife, including monkeys, birds, and reptiles, and is one of the last remnants of Singapore's primary rainforest. The reserve offers an educational experience with its diverse flora and fauna, making it a popular spot for nature lovers, hikers, and those seeking tranquility in the heart of the city.",
+    "description": "Hiking in Bukit Timah Nature Reserve immerses you in Singapore's rich biodiversity, with trails leading through dense tropical rainforests. Ascend Singapore's highest hill, encounter unique wildlife, and enjoy the peaceful embrace of nature in this verdant sanctuary.",
     "country": "Singapore",
     "timeZone": "GMT+08",
     "visitList": "[]"
@@ -21,7 +21,25 @@
     "lat": "1.3395413426383924",
     "lng": "103.78026582318077",
     "name": "Rail Corridor",
-    "description": "The Rail Corridor, stretching over 24 kilometers from Tanjong Pagar to Woodlands, is a revitalized green space in Singapore that traces the route of the former KTM railway line. It offers a unique blend of nature, history, and heritage, as it passes through diverse landscapes, including forests, open fields, and urban areas. The corridor is dotted with historical landmarks, such as old railway stations and bridges, providing a glimpse into Singapore's past. Popular for walking, cycling, and recreational activities, the Rail Corridor is a symbol of sustainable urban development, seamlessly integrating green spaces with the city’s modern infrastructure.",
+    "description": "Hiking along the Rail Corridor offers a unique journey through Singapore's heritage, blending urban charm with lush greenery. Explore the former railway line, enjoy picturesque trails, and connect with nature while uncovering remnants of Singapore's rich history.",
+    "country": "Singapore",
+    "timeZone": "GMT+08",
+    "visitList": "[]"
+  },
+  {
+    "lat": "1.3642970692947682",
+    "lng": "103.77645044063057",
+    "name": "Dairy Farm Nature Park",
+    "description": "Dairy Farm Nature Park provides a serene retreat with trails winding through lush forests and rugged terrains. Discover the Wallace Education Centre, tranquil quarry views, and diverse wildlife in this picturesque escape amidst Singapore's natural heritage.",
+    "country": "Singapore",
+    "timeZone": "GMT+08",
+    "visitList": "[]"
+  },
+  {
+    "lat": "1.3762391098584623",
+    "lng": "103.78112551950382",
+    "name": "Chestnut Nature Park",
+    "description": "Chestnut Nature Park offers a dynamic experience with separate trails for hikers and mountain bikers. Explore Singapore's largest nature park, featuring lush forests, scenic streams, and panoramic views, perfect for nature lovers and adventure enthusiasts alike.",
     "country": "Singapore",
     "timeZone": "GMT+08",
     "visitList": "[]"
@@ -30,7 +48,7 @@
     "lat": "18.366419522992274",
     "lng": "73.75595356838926",
     "name": "Sinhagad Fort",
-    "description": "Sinhagad Fort, located near Pune, Maharashtra, is a historic hill fortress renowned for its strategic importance and rich heritage. Perched atop a steep hill in the Sahyadri range, it offers breathtaking views of the surrounding landscape. The fort, whose name means Fort of the Lion, played a pivotal role in many battles, including the legendary 1670 battle led by Maratha warrior Tanaji Malusare under Shivaji Maharaj. Its rugged stone walls, ancient gates, and remnants of bastions echo tales of bravery. A popular trekking destination, Sinhagad is also known for its cool climate, natural beauty, and traditional Maharashtrian food stalls.",
+    "description": "Hiking to Sinhagad Fort combines history and adventure, offering panoramic views of the Sahyadri Hills. Traverse rugged trails, discover ancient fortifications, and immerse yourself in the rich heritage of this iconic hilltop fortress near Pune, India.",
     "country": "India",
     "timeZone": "GMT+05:30",
     "visitList": "[]"
@@ -39,7 +57,25 @@
     "lat": "10.05343982851771",
     "lng": "77.05703156925533",
     "name": "Attukad Waterfall Trail",
-    "description": "The Attukad Waterfall Trail, nestled in the lush hills of Munnar, Kerala, offers an enchanting journey through dense greenery and rugged terrain to one of the region's most stunning waterfalls. This picturesque trail is perfect for nature lovers and adventure enthusiasts, as it combines scenic beauty with a mild trekking challenge. Cascading from a rocky cliff, the waterfall creates a mesmerizing misty spectacle, especially during the monsoon season. Along the way, trekkers can enjoy the tranquil ambiance, chirping birds, and fresh mountain air. The Attukad Waterfall Trail is an ideal escape for those seeking serenity and a closer connection to nature.",
+    "description": "The Attukad Waterfall Trail is a mesmerizing journey through lush greenery, serene landscapes, and rocky paths. Experience the cascading beauty of the waterfall, surrounded by tranquil tea plantations, offering a rejuvenating escape in Munnar, Kerala.",
+    "country": "India",
+    "timeZone": "GMT+05:30",
+    "visitList": "[]"
+  },
+  {
+    "lat": "31.99955624369959",
+    "lng": "77.45996671049708",
+    "name": "Keerganga Trek",
+    "description": "The Kheerganga trek offers an enchanting journey through dense forests, cascading waterfalls, and scenic meadows. Reach the summit to unwind in natural hot springs while soaking in breathtaking views of the majestic Parvati Valley in Himachal Pradesh, India.",
+    "country": "India",
+    "timeZone": "GMT+05:30",
+    "visitList": "[]"
+  },
+  {
+    "lat": "30.01862523484211",
+    "lng": "78.1523769390934",
+    "name": "Rajaji National Park",
+    "description": "Rajaji National Park immerses you in the pristine wilderness of the Shivalik Hills. Traverse diverse terrains, encounter rich wildlife, including elephants and leopards, and relish the serenity of dense forests and scenic riverine landscapes in Uttarakhand.",
     "country": "India",
     "timeZone": "GMT+05:30",
     "visitList": "[]"
@@ -48,7 +84,7 @@
     "lat": "35.361348483918874",
     "lng": "138.7273563371948",
     "name": "Mount Fuji",
-    "description": "The Mount Fuji trek is a once-in-a-lifetime adventure offering breathtaking views and a profound cultural experience. Rising majestically at 3,776 meters, Mount Fuji is Japan’s highest peak and an iconic symbol of beauty and resilience. Trekkers typically ascend during the official climbing season (July to September) when trails are accessible and weather conditions are favorable. The trek combines challenging terrain with awe-inspiring vistas of surrounding lakes, forests, and distant landscapes. Reaching the summit to witness a spectacular sunrise, known as Goraikō, is a highlight. Along the way, mountain huts offer rest and nourishment, making this journey both exhilarating and rewarding.",
+    "description": "Mount Fuji offers an unforgettable experience with stunning views of Japan's iconic peak, tranquil lakes, and vibrant forests. Explore trails in the Five Lakes region, visit cultural landmarks, and immerse yourself in the serene beauty of nature, blending adventure with the majestic allure of this sacred mountain.",
     "country": "Japan",
     "timeZone": "GMT+09",
     "visitList": "[]"
@@ -57,7 +93,34 @@
     "lat": "34.709806308219996",
     "lng": "135.193859312166",
     "name": "Nunobiki Falls",
-    "description": "Hiking to Nunobiki Falls in Kobe, Japan, is a serene and refreshing experience, blending natural beauty with cultural charm. The trail, conveniently starting near Shin-Kobe Station, takes hikers through a lush forest, offering scenic views of the city below. Nunobiki Falls is a series of four cascading waterfalls: Ontaki, Mentaki, Meotodaki, and Tsutsumigadaki, each with its own unique allure. The sound of rushing water and the tranquil surroundings create a peaceful ambiance. This moderate hike also provides glimpses of historical sites like the Nunobiki Herb Garden and reservoirs. It’s an ideal escape for nature lovers seeking beauty and rejuvenation.",
+    "description": "Hiking to Nunobiki Falls offers a peaceful retreat into nature near Kobe. Traverse lush forest trails to discover cascading waterfalls, including the iconic Ontaki and Mentaki. Enjoy the tranquil ambiance and breathtaking scenery of this serene escape.",
+    "country": "Japan",
+    "timeZone": "GMT+09",
+    "visitList": "[]"
+  },
+  {
+    "lat": "36.34272361585885",
+    "lng": "137.64770708375775",
+    "name": "Yarigatake",
+    "description": "Yarigatake offers an exhilarating adventure in the Japanese Alps, featuring rugged trails, dramatic ridges, and sweeping views. Ascend Japan's \"Matterhorn\" for a challenging yet rewarding experience, surrounded by breathtaking alpine landscapes and pristine natural beauty.",
+    "country": "Japan",
+    "timeZone": "GMT+09",
+    "visitList": "[]"
+  },
+  {
+    "lat": "43.50886532084271",
+    "lng": "142.98450037734756",
+    "name": "Daisetsuzan National Park",
+    "description": "Daisetsuzan National Park unveils Hokkaido's untamed wilderness, with expansive volcanic landscapes, alpine meadows, and vibrant autumn foliage. Traverse diverse trails, from serene walks to challenging ascents, encountering hot springs, unique wildlife, and panoramic vistas, offering an unforgettable escape into Japan's largest and most pristine national park.",
+    "country": "Japan",
+    "timeZone": "GMT+09",
+    "visitList": "[]"
+  },
+  {
+    "lat": "33.76882157187483",
+    "lng": "133.114295350608",
+    "name": "Ishizuchi",
+    "description": "Mount Ishizuchi offers a thrilling journey to Shikoku’s highest peak. Traverse steep trails, climb chain routes, and enjoy breathtaking views of rugged landscapes, serene forests, and misty ridges, making it a must-visit for adventurous hikers in Japan.",
     "country": "Japan",
     "timeZone": "GMT+09",
     "visitList": "[]"

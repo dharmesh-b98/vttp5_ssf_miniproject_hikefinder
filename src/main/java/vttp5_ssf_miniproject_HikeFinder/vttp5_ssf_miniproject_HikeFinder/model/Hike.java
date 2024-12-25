@@ -17,6 +17,9 @@ public class Hike {
     @NotEmpty(message = "mandatory")
     private String host;
 
+    @NotEmpty(message = "mandatory")
+    private String country;
+
     @NotEmpty(message = "choose a hike spot")
     private String hikeSpotName;
 
@@ -42,9 +45,14 @@ public class Hike {
         this.usersJoined = new ArrayList<String>();
     }  
 
-    public Hike(String id, String host, String hikeSpotName, Date dateTime, Date sunriseTime, Date sunsetTime) {
+    public Hike(@NotEmpty(message = "mandatory") String id, @NotEmpty(message = "mandatory") String host,
+            @NotEmpty(message = "mandatory") String country,
+            @NotEmpty(message = "choose a hike spot") String hikeSpotName,
+            @NotNull(message = "mandatory") @Future(message = "Has to be future date") Date dateTime,
+            @NotNull(message = "mandatory") Date sunriseTime, @NotNull(message = "mandatory") Date sunsetTime) {
         this.id = id;
         this.host = host;
+        this.country = country;
         this.hikeSpotName = hikeSpotName;
         this.dateTime = dateTime;
         this.sunriseTime = sunriseTime;
@@ -55,10 +63,15 @@ public class Hike {
         this.usersJoined = emptyUsersJoined;
     }
 
-    public Hike(String id, String host, String hikeSpotName, Date dateTime, Date sunriseTime, Date sunsetTime,
-            List<String> usersJoined) {
+    public Hike(@NotEmpty(message = "mandatory") String id, @NotEmpty(message = "mandatory") String host,
+            @NotEmpty(message = "mandatory") String country,
+            @NotEmpty(message = "choose a hike spot") String hikeSpotName,
+            @NotNull(message = "mandatory") @Future(message = "Has to be future date") Date dateTime,
+            @NotNull(message = "mandatory") Date sunriseTime, @NotNull(message = "mandatory") Date sunsetTime,
+            @NotEmpty(message = "mandatory") List<String> usersJoined) {
         this.id = id;
         this.host = host;
+        this.country = country;
         this.hikeSpotName = hikeSpotName;
         this.dateTime = dateTime;
         this.sunriseTime = sunriseTime;
@@ -80,6 +93,14 @@ public class Hike {
 
     public void setHost(String host) {
         this.host = host;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public String getHikeSpotName() {
@@ -121,12 +142,5 @@ public class Hike {
     public void setUsersJoined(List<String> usersJoined) {
         this.usersJoined = usersJoined;
     }
-
-    
-
-    
-    
-
-
 
 }

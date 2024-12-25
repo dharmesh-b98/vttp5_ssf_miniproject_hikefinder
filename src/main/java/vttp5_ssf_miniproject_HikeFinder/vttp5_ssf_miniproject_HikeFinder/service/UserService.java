@@ -23,7 +23,7 @@ public class UserService {
     @Autowired
     ValueRepo userValueRepo;
 
-    public String checkLogin(String userName, HttpSession session){
+    public String checkLogin(String userName, HttpSession session){ //NEED TO EDIT AND IMPLEMENT
         String sessionUserName = (String) session.getAttribute("userName");
         if (sessionUserName == null){
             return "0";
@@ -34,6 +34,12 @@ public class UserService {
         return "2";
     }
 
+
+    public AppUser getAppUser(String UserName){
+        String appUserJson = (String) userRepo.get(Constants.usersHashRedisKey, UserName);
+        AppUser appUser = convertJsontoUser(appUserJson);
+        return appUser;
+    }
 
 
     public void saveUser(AppUser appUser){
@@ -84,13 +90,13 @@ public class UserService {
         String password = appUser.getPassword();
 
         String role = appUser.getRole();
-        List<String> hikesCompleted = appUser.getHikesCompleted();
+        List<String> hostedHikes = appUser.getHostedHikes();
 
         JsonObjectBuilder job = Json.createObjectBuilder();
         JsonObject userJson = job.add("userName",userName)
                                     .add("password", password)
                                     .add("role", role)
-                                    .add("hikesCompleted", hikesCompleted.toString())
+                                    .add("hostedHikes", hostedHikes.toString())
                                     .build();
 
         return userJson;
@@ -104,15 +110,15 @@ public class UserService {
         String userName = appUserJson.getString("userName");
         String password = appUserJson.getString("password");
         String role = appUserJson.getString("role");
-        String hikesCompletedString = appUserJson.getString("hikesCompleted");
-        List<String> hikesCompleted = new ArrayList<>();
+        String hostedHikesString = appUserJson.getString("hostedHikes");
+        List<String> hostedHikes = new ArrayList<>();
         
-        String [] hikesCompletedStringArray = hikesCompletedString.replace("[","").replace("]","").split(",");
-        for (String hikesCompletedStringEntry : hikesCompletedStringArray ){
-            hikesCompleted.add(hikesCompletedStringEntry.trim());
+        String [] hostedHikesStringArray = hostedHikesString.replace("[","").replace("]","").split(",");
+        for (String hostedHikesStringEntry : hostedHikesStringArray ){
+            hostedHikes.add(hostedHikesStringEntry.trim());
         }
 
-        AppUser appUser = new AppUser(userName, password, role, hikesCompleted);
+        AppUser appUser = new AppUser(userName, password, role, hostedHikes);
         return appUser;
     }
 
