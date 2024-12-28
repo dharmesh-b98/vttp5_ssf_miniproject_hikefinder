@@ -11,9 +11,8 @@ public class AppUser {
     @NotEmpty(message = "Mandatory")
     private String userName;
 
-    //@Size(min=5, max=15, message= "Length has to be inbetween between 5 and 15")
-    @NotEmpty(message="Mandatory")//need to write message for the password
-    //@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\\\d)(?=.*[@#$%^&+=]).{8,}$", message="Ensure that the password format matches the following rules")
+    @NotEmpty(message="Mandatory")
+    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$", message="Password needs to be 8 characters with at least one number")
     private String password;
     
     private String role;

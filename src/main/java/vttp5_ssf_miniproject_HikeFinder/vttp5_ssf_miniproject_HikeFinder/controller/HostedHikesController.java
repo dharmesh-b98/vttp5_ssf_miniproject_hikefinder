@@ -30,17 +30,12 @@ public class HostedHikesController {
     @Autowired
     HikeSpotService hikeSpotService;
 
-
-
     //Add Hikes GET
     @GetMapping("{userName}/addHike/{hikeSpotName}")
     public String addHike(@PathVariable("userName") String userName,@PathVariable("hikeSpotName") String hikeSpotName, HttpSession session, Model model){
         String sessionUserName = (String) session.getAttribute("userName");
-        if (sessionUserName == null){
-            return "redirect:/";
-        }   
-        if (!sessionUserName.equals(userName)){
-            return "redirect:/";
+        if (sessionUserName == null || (!sessionUserName.equals(userName))){
+            return "redirect:/?loginErrorMsg=You do not have access to that";
         }
                
         
@@ -69,11 +64,8 @@ public class HostedHikesController {
     @PostMapping("{userName}/addHike/{hikeSpotName}")
     public String addHikePost(@Valid @ModelAttribute Hike hike, BindingResult binding, @PathVariable("userName") String userName, @PathVariable("hikeSpotName") String hikeSpotName, HttpSession session){
         String sessionUserName = (String) session.getAttribute("userName");
-        if (sessionUserName == null){
-            return "redirect:/";
-        }   
-        if (!sessionUserName.equals(userName)){
-            return "redirect:/";
+        if (sessionUserName == null || (!sessionUserName.equals(userName))){
+            return "redirect:/?loginErrorMsg=You do not have access to that";
         }
 
         if (binding.hasErrors()){
@@ -90,11 +82,8 @@ public class HostedHikesController {
     @GetMapping("{userName}/{user}/removeHike/{hikeId}")
     public String addHikePost( @PathVariable("userName") String userName, @PathVariable("user") String user, @PathVariable("hikeId") String hikeId, HttpSession session){
         String sessionUserName = (String) session.getAttribute("userName");
-        if (sessionUserName == null){
-            return "redirect:/";
-        }   
-        if (!sessionUserName.equals(userName)){
-            return "redirect:/";
+        if (sessionUserName == null || (!sessionUserName.equals(userName))){
+            return "redirect:/?loginErrorMsg=You do not have access to that";
         }
 
         Hike hike = hikeService.getHike(hikeId);
@@ -111,16 +100,15 @@ public class HostedHikesController {
     @GetMapping("{userName}/hostedHikeList")
     public String getHostedHikeList(@PathVariable("userName") String userName, @RequestParam(name="filterBy", defaultValue="Unfiltered") String filterBy, HttpSession session, Model model){
         String sessionUserName = (String) session.getAttribute("userName");
-        if (sessionUserName == null){
-            return "redirect:/";
-        }   
-        if (!sessionUserName.equals(userName)){
-            return "redirect:/";
+        if (sessionUserName == null || (!sessionUserName.equals(userName))){
+            return "redirect:/?loginErrorMsg=You do not have access to that";
         }
 
         List<Hike> hikeList = hikeService.getFilteredHikeList(filterBy);
+        
         model.addAttribute("hikeList", hikeList);
         model.addAttribute("userName", userName);
+
         return "hostedhikelist";
     }
 
@@ -130,26 +118,21 @@ public class HostedHikesController {
     @GetMapping("{userName}/join/{hikeId}")
     public String joinHike(@PathVariable("userName") String userName, @PathVariable("hikeId") String hikeId, HttpSession session){
         String sessionUserName = (String) session.getAttribute("userName");
-        if (sessionUserName == null){
-            return "redirect:/";
-        }   
-        if (!sessionUserName.equals(userName)){
-            return "redirect:/";
+        if (sessionUserName == null || (!sessionUserName.equals(userName))){
+            return "redirect:/?loginErrorMsg=You do not have access to that";
         }
 
         hikeService.joinHike(userName, hikeId);
         return "redirect:/hostedhikes/"+ userName + "/hostedHikeList";    
     }
 
+
     //Unjoin Hike
     @GetMapping("{userName}/unjoin/{hikeId}")
     public String unjoinHike(@PathVariable("userName") String userName, @PathVariable("hikeId") String hikeId, HttpSession session){
         String sessionUserName = (String) session.getAttribute("userName");
-        if (sessionUserName == null){
-            return "redirect:/";
-        }  
-        if (!sessionUserName.equals(userName)){
-            return "redirect:/";
+        if (sessionUserName == null || (!sessionUserName.equals(userName))){
+            return "redirect:/?loginErrorMsg=You do not have access to that";
         }
 
         hikeService.unjoinHike(userName, hikeId);

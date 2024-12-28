@@ -143,4 +143,13 @@ public class Hike {
         this.usersJoined = usersJoined;
     }
 
+
+
+    public Boolean contains(String userNameString){
+            return usersJoined.contains(userNameString);
+    }
+    public Boolean isHost(String userNameString){
+        return host.equals(userNameString);
+}
+
 }

@@ -17,7 +17,7 @@ import vttp5_ssf_miniproject_HikeFinder.vttp5_ssf_miniproject_HikeFinder.service
 
 @Controller
 @RequestMapping("/user")
-public class UserController {
+public class UserProfileController {
 
     @Autowired
     UserService userService;
@@ -28,11 +28,8 @@ public class UserController {
     @GetMapping("/{userName}/{user}")
     public String showUserDetails(@PathVariable("userName") String userName, @PathVariable("user") String user, HttpSession session, Model model){
         String sessionUserName = (String) session.getAttribute("userName");
-        if (sessionUserName == null){
-            return "redirect:/";
-        }   
-        if (!sessionUserName.equals(userName)){
-            return "redirect:/";
+        if (sessionUserName == null || (!sessionUserName.equals(userName))){
+            return "redirect:/?loginErrorMsg=You do not have access to that";
         }
 
         Boolean ownProfile = false;

@@ -24,20 +24,20 @@ public class HikeSpotsController {
     @GetMapping("/{userName}/home")
     public String showHikeSpotList(@PathVariable("userName") String userName, @RequestParam(name="filterBy", defaultValue = "Unfiltered") String filterBy, HttpSession session, Model model ){
         String sessionUserName = (String) session.getAttribute("userName");
-        if (sessionUserName == null){
-            return "redirect:/";
-        }   
-        if (!sessionUserName.equals(userName)){
-            return "redirect:/";
+        if (sessionUserName == null || (!sessionUserName.equals(userName))){
+            return "redirect:/?loginErrorMsg=You do not have access to that";
         }
 
         List<HikeSpot> hikeSpotList = hikeSpotService.getFilteredHikeSpotList(filterBy);
         String centerCoordinates = hikeSpotService.getCenterCoordinates(hikeSpotList);
         String mapZoom = hikeSpotService.getMapZoom(filterBy);
+
         model.addAttribute("hikeSpotList", hikeSpotList);
         model.addAttribute("centerCoordinates", centerCoordinates);
         model.addAttribute("mapZoom", mapZoom);
         model.addAttribute("userName", userName);
+        model.addAttribute("googleMapApiUrl",hikeSpotService.getGoogleMapApiUrl());
+        model.addAttribute("googleMapMarkerUrl",hikeSpotService.getGoogleMapMarkerUrl());
         return "hikespotoverview";
     }
 

@@ -8,14 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jakarta.json.*;
-import jakarta.servlet.http.HttpSession;
 import vttp5_ssf_miniproject_HikeFinder.vttp5_ssf_miniproject_HikeFinder.model.AppUser;
 import vttp5_ssf_miniproject_HikeFinder.vttp5_ssf_miniproject_HikeFinder.repo.HashRepo;
 import vttp5_ssf_miniproject_HikeFinder.vttp5_ssf_miniproject_HikeFinder.repo.ValueRepo;
-import vttp5_ssf_miniproject_HikeFinder.vttp5_ssf_miniproject_HikeFinder.constants.*;;;
+import vttp5_ssf_miniproject_HikeFinder.vttp5_ssf_miniproject_HikeFinder.constants.*;
 
 @Service
 public class UserService {
+
     
     @Autowired
     HashRepo userRepo;
@@ -23,15 +23,11 @@ public class UserService {
     @Autowired
     ValueRepo userValueRepo;
 
-    public String checkLogin(String userName, HttpSession session){ //NEED TO EDIT AND IMPLEMENT
-        String sessionUserName = (String) session.getAttribute("userName");
-        if (sessionUserName == null){
-            return "0";
-        }   
-        if (!sessionUserName.equals(userName)){
-            return "1";
-        }
-        return "2";
+    
+    //getting list of userNames
+    public List<String> getUserNameList(){
+       List<String> userNameList = new ArrayList<>(userRepo.keys(Constants.usersHashRedisKey));
+       return userNameList;
     }
 
 
@@ -49,9 +45,7 @@ public class UserService {
 
 
     public Boolean checkLoginCredentials(String userName, String password){
-        initialiseUserList();
         if (checkUserExists(userName)){
-            System.out.println("\n\n\n\n\n\n\n\n"+"USERNAME EXISTS");
             if (checkPasswordCorrect(userName, password)){
                 return true;
             }
@@ -59,21 +53,14 @@ public class UserService {
         return false;
     }
 
-    public void initialiseUserList(){
-        Boolean userListExists = userValueRepo.checkExists(Constants.usersHashRedisKey);
-        if(!userListExists){
-            //need to add password to env variable
-            AppUser admin = new AppUser("admin","adminpassword","ADMIN", new ArrayList<>());
-            String adminString = convertUsertoJson(admin).toString();
-            userRepo.put(Constants.usersHashRedisKey,admin.getUserName(),adminString);
-        }
-    }
 
+    //check if username exists during login
     public Boolean checkUserExists(String userName){
         return userRepo.hasKey(Constants.usersHashRedisKey, userName);
     }
 
 
+    //check password during login
     public Boolean checkPasswordCorrect(String userName, String password){ //only if user exists
         String appUserJsonString = (String) userRepo.get(Constants.usersHashRedisKey, userName);
         AppUser appUser = convertJsontoUser(appUserJsonString);
@@ -85,6 +72,19 @@ public class UserService {
     }
 
 
+    //initialise a userList (used in command line runner)
+    public void initialiseUserList(String adminUserName, String adminPassword){
+        Boolean userListExists = userValueRepo.checkExists(Constants.usersHashRedisKey);
+        if(!userListExists){
+            //need to add password to env variable
+            AppUser admin = new AppUser(adminUserName, adminPassword,"ADMIN", new ArrayList<>());
+            String adminString = convertUsertoJson(admin).toString();
+            userRepo.put(Constants.usersHashRedisKey,admin.getUserName(),adminString);
+        }
+    }
+
+
+    //convert user to json
     public JsonObject convertUsertoJson(AppUser appUser){
         String userName = appUser.getUserName();
         String password = appUser.getPassword();
@@ -103,6 +103,7 @@ public class UserService {
     }
 
 
+    //convert Json to user
     public AppUser convertJsontoUser(String appUserJsonString){
         JsonReader reader = Json.createReader(new StringReader(appUserJsonString));
         JsonObject appUserJson= reader.readObject();

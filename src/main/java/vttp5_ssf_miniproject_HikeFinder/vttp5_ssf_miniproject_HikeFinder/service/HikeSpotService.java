@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import jakarta.json.Json;
 import jakarta.json.JsonArray;
@@ -24,7 +26,10 @@ import vttp5_ssf_miniproject_HikeFinder.vttp5_ssf_miniproject_HikeFinder.repo.Ha
 public class HikeSpotService {
     @Autowired
     HashRepo hikeSpotRepo;
-    
+
+    @Value("${google.api.key}")
+    String googleApiKey;
+
 
     //finding center coordinate of map
     public String getCenterCoordinates(List<HikeSpot> hikeSpotList){
@@ -41,6 +46,8 @@ public class HikeSpotService {
         return output;
     }
 
+
+    //getting map zoom level
     public String getMapZoom(String filterBy){
         if (filterBy.equals("Japan")){
             return "4";
@@ -55,8 +62,30 @@ public class HikeSpotService {
     }
 
 
+    //getting google map api link
+    public String getGoogleMapApiUrl(){
+        String googleMapApiUrl = UriComponentsBuilder
+                        .fromUriString("https://maps.googleapis.com/maps/api/js")
+                        .queryParam("key", googleApiKey)
+                        .queryParam("callback","initMap")
+                        .toUriString();
+        return googleMapApiUrl;
+    }
 
-    //filtering hike spots by country
+
+    //getting google map marker link
+    public String getGoogleMapMarkerUrl(){
+        String googleMapMarkerUrl = UriComponentsBuilder
+                        .fromUriString("https://maps.googleapis.com/maps/api/js")
+                        .queryParam("key", googleApiKey)
+                        .queryParam("libraries","maps,marker")
+                        .queryParam("v","beta")
+                        .toUriString();
+        return googleMapMarkerUrl;
+    }
+
+
+    //filtering hikespotlist by country
     public List<HikeSpot> getFilteredHikeSpotList(String filterBy){
         List<HikeSpot> hikeSpotList = getHikeSpotList();
         List<HikeSpot> filteredHikeSpotList = new ArrayList<>();
@@ -70,8 +99,7 @@ public class HikeSpotService {
     }
 
 
-    //getting hikespots from Redis
-
+    //get a hikespot
     public HikeSpot getHikeSpot(String hikeSpotName){
         String hikeSpotString = (String) hikeSpotRepo.get(Constants.hikeSpotHashRedisKey, hikeSpotName);
         HikeSpot hikeSpot = convertJsontoHikeSpot(hikeSpotString);
@@ -79,6 +107,7 @@ public class HikeSpotService {
     }
 
 
+    //get hikespotlist
     public List<HikeSpot> getHikeSpotList(){
         List<String> hikeSpotListString = hikeSpotRepo.values(Constants.hikeSpotHashRedisKey);
         List<HikeSpot> hikeSpotList = new ArrayList<>();
@@ -90,8 +119,7 @@ public class HikeSpotService {
     }
 
 
-    //converting HikeSpots between Json and Object
-    
+    //converting json to hikespot
     public HikeSpot convertJsontoHikeSpot(String hikeSpotJsonString){
         JsonReader reader = Json.createReader(new StringReader(hikeSpotJsonString));
         JsonObject hikeSpotJson = reader.readObject();
@@ -115,7 +143,6 @@ public class HikeSpotService {
 
 
     //initialising HikeSpots
-
     public void addHikeSpots() throws IOException{
         JsonArray hikeSpotJsonArray = getHikeSpotJsonArray(Constants.hikeSpotJsonDatapath);
         for (int i = 0; i < hikeSpotJsonArray.size(); i++){

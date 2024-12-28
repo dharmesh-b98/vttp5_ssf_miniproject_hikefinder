@@ -4,106 +4,245 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title>User Profile</title>
 
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
         <style>
-            /* General Styles */
+            /* body and header links */
+
             body {
-                font-family: Arial, sans-serif;
+                background-image: url('/images/background.jpeg');
+                background-attachment: fixed;
+                background-size: cover;
+                font-family: 'Courier New', monospace;
                 margin: 0;
                 padding: 0;
-                background-color: #f8f9fa;
             }
 
+            .banner {
+                background-color: rgb(35, 80, 19);
+                opacity:0.8;
+                height:100px;
+                width:100%;
+                position:absolute;
+                z-index:0;
+            }
+
+            .header-link {
+                color:white;
+                border: 1px solid white;
+                border-bottom:none;
+                position:relative;
+                top:65px;
+                z-index:1;
+            }
+
+            #hostedhike-link{
+                left:200px;
+            
+            }
+            
+            #hikespots-link{
+                left:200px;
+            
+            }
+
+            #logout-link {
+                float:right;
+            }
+
+            #username-link {
+                float:right;
+            }
+
+            #logo {
+                height: 200px;
+                width: auto;
+                position:absolute;
+                z-index: 1;
+            }
+
+            /* title */
+            
             h1 {
-                text-align: center;
-                margin-top: 20px;
-                color: #2c3e50;
-            }
-
-            #hostedhikelist {
-                margin: 20px auto;
+                margin-top:0px;
+                margin-left: 170px;
                 width: 90%;
+                min-width:1000px;
                 max-width: 1200px;
+            }
+
+            h3 {
+                margin-top:0px;
+                text-align: center;
+                background-color: rgba(255, 255, 255, 0.8);
+                border-radius:10px;
+
+                max-width: 1200px;
+                margin-left: auto;
+                margin-right: auto;
+                margin-left: 170px;
+                width: 90%;
+            }
+
+            .userinfo-section {
+                position:relative;
+                width:fit-content;
+                margin-left:170px;
+                background-color: rgba(255, 255, 255, 0.8);
+                border-radius: 10px;
+                padding-left: 10px;
+                padding-right: 10px;
+                text-align: center;
+            }
+
+
+            
+            /* hostedhikelist */
+
+            #no-hosted-hikes {
+                text-align: center;
+            }
+
+            .list-section {
                 height: 400px;
+                max-width: 1200px;
+                margin-left: auto;
+                margin-right: auto;
+                margin-left: 170px;
+                width: 90%;
+
                 overflow: scroll;
+                border-radius: 10px;
+                background-color: rgba(255, 255, 255, 0.8);
+
             }
 
-            /* Table Styles */
-            #hostedhikelist table {
-                width: 100%;
-                border-collapse: collapse;
-                border: 1px solid #ddd;
-                background-color: #fff;
+            table {
+                width:100%;
             }
 
-            #hostedhikelist th, #hikespotlist td {
+            #hostedhikelist th, #hostedhikelist td {
                 border: 1px solid #ddd;
                 padding: 10px;
-                text-align: left;
+                text-align: center;
             }
 
             #hostedhikelist th {
-                background-color: #2c3e50;
-                color: #fff;
-                text-transform: uppercase;
+                background-color: rgb(76, 113, 64, 1);
+                color: rgba(255, 255, 255);
+                position: sticky;
+                top:0px;
             }
 
-            #hostedhikelist tr:nth-child(even) {
-                background-color: #f2f2f2;
+            #hostedhikelist td {
+                font-size: 14px;
             }
 
-            #hostedhikelist tr:hover {
-                background-color: #eaeaea;
+            /* #hostedhikelist tr:hover {
+                background-color:rgb(35, 80, 19, 0.1);
+            } */
+
+            .usersjoined-list {
+                list-style-type:none;
             }
+
+            .usersjoined-button {
+                font-size: 14px;
+                color: rgb(40, 54, 202);
+            }
+
+            .usersjoined-button:hover {
+                background-color: rgb(35, 80, 19, 0.1);
+                outline: 2px solid black;
+            }
+
+            .unhost-button {
+                font-size: 14px;
+                background-color: rgba(80, 26, 19, 0.2);
+            }
+
+            .unhost-button:hover {
+                background-color: rgba(80, 26, 19, 0.2);
+                outline: 2px solid black;
+            }
+
+            
+
         </style>
     </head>
 
     <body>
-        <a data-th-href="@{/hikeSpots/{userName}/home(userName=${userName})}">Hike Spots</a></br>
-        <a data-th-href="@{/hostedhikes/{userName}/hostedHikeList(userName=${userName})}">Hosted Hikes</a></br>
-        <a data-th-href="@{/logout}">Log Out</a>
+        <header class="banner">
+            <a class="header-link btn" id="hikespots-link" data-th-href="@{/hikeSpots/{userName}/home(userName=${userName})}"><i class="bi bi-globe-central-south-asia"></i></i> Hike Spots</a>
+            <a class="header-link btn" id="hostedhike-link" data-th-href="@{/hostedhikes/{userName}/hostedHikeList(userName=${userName})}"><i class="bi bi-backpack3-fill"></i> Hosted Hikes</a>
+            <a class="header-link btn" id="logout-link" data-th-href="@{/logout}"><i class="bi bi-box-arrow-left"></i> Logout</a>
+            <a class="header-link btn" id="username-link" data-th-href="@{/user/{userName}/{user}(userName=${userName}, user=${userName})}" data-th-text="${userName}"></a>
+        </header>
+
+        <img id="logo" src="/images/logo.png">
+        
+        </br></br></br></br></br>
         <h1 class="text-center">User Profile</h1>
 
+        <section class="userinfo-section">
         <img src="https://freesvg.org/img/userMale.png" alt="User Profile Picture" width="100" height="auto">
-        <h3 data-th-text = "${appUser.userName}"></h3>
+        <h4 data-th-text = "${appUser.userName}"></h4>
+        </section>
 
+        <h3> Hikes Hosted by <span data-th-text = "${appUser.userName}"></span></h3>
         
-        <section>
-            <div id="hostedhikelist">
+        <section class="list-section">
+            <div id="hostedhikelist" data-th-if = "${personalHostedHikeList.size() gt 0}">
                 <table>
                     <thead>
                         <tr>
+                            <th>Country</th>
                             <th>HikeSpot</th>
-                            <th>Time Details (In Local Time)</th>
-                            <th>Sunrise Time</th>
-                            <th>Sunset Time</th>
+                            <th>Time Details <br/>(In Local Time)</th>
+                            <th><i class="bi bi-sunrise"></i> Sunrise Time</th>
+                            <th><i class="bi bi-sunset"></i> Sunset Time</th>
                             <th>Host</th>
-                            <th>Users Joined</th> 
-                            <th>Sign Up</th>         
+                            <th>Users Joined</th>
+                            <th>Remove</th>
                         </tr>
                     </thead>
                     
                     <tbody>
                         <tr data-th-each="hike : ${personalHostedHikeList}">
+                            <td data-th-text="${hike.country}"></td>
                             <td data-th-text="${hike.hikeSpotName}"></td>
-                            <td data-th-text="${#dates.format(hike.dateTime,'dd/MM/yyyy (hh:mm aa)')}"></td>
-                            <td data-th-text="${#dates.format(hike.sunriseTime,'dd/MM/yyyy (hh:mm aa)')}"></td>
-                            <td data-th-text="${#dates.format(hike.sunsetTime,'dd/MM/yyyy(hh:mm aa)')}"></td>
+                            <td data-th-text="${#dates.format(hike.dateTime,'dd/MM/yyyy(hh:mmaa)')}"></td>
+                            <td data-th-text="${#dates.format(hike.sunriseTime,'dd/MM/yyyy(hh:mmaa)')}"></td>
+                            <td data-th-text="${#dates.format(hike.sunsetTime,'dd/MM/yyyy(hh:mmaa)')}"></td>
                             <td data-th-text="${hike.host}"></td>
                             <td>
-                                <ul data-th-each="userJoin : ${hike.usersJoined}">
-                                    <li data-th-text="${userJoin}"></li>
+                                <ul class="usersjoined-list" data-th-each="userJoin : ${hike.usersJoined}">
+                                    <li><a class="usersjoined-button btn" data-th-text="${userJoin}" data-th-href="@{/user/{userName}/{user}(userName=${userName}, user=${userJoin})}"></a></li>
                                 </ul>   
                             </td>
-                            <td><a data-th-href="@{/hostedhikes/{userName}/{user}/removeHike/{hikeId}(userName=${userName},user=${user},hikeId=${hike.id})}">UnHost</a></td>
+                            <div data-th-if="${hike.isHost(userName)}">
+                                <td><a class="unhost-button btn" data-th-href="@{/hostedhikes/{userName}/{user}/removeHike/{hikeId}(userName=${userName},user=${user},hikeId=${hike.id})}">Remove</a></td>
+                            </div>
+                            <div data-th-unless="${hike.isHost(userName)}">
+                                <td>You are not<br/>the host</td>
+                            </div>
                         </tr>
                     </tbody>
+
                 </table>
+
             </div>
+
+            <div id="no-hosted-hikes" data-th-unless="${personalHostedHikeList.size() gt 0}">
+                <p>Oh no! There are no hosted hikes at the moment <i class="bi bi-emoji-frown"></i><p>
+            </div>
+
         </section>
 
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     </body>
 
 </html>

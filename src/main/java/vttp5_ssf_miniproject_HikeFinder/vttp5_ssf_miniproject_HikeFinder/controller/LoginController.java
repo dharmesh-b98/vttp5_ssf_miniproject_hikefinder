@@ -7,11 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -32,8 +34,9 @@ public class LoginController {
 
 
     //Login GET
-    @GetMapping("")
-    public String showLogin() throws IOException{
+    @GetMapping("/")
+    public String showLogin(@RequestParam(name="loginErrorMsg", defaultValue="") String loginErrorMsg, Model model) throws IOException{
+        model.addAttribute("loginErrorMsg", loginErrorMsg);
         return "login";
     }
     
@@ -49,7 +52,7 @@ public class LoginController {
             session.setAttribute("userName", userName );
             return "redirect:/hikeSpots/"+userName+"/home";
         }
-        return "redirect:/";
+        return "redirect:/?loginErrorMsg=Wrong Credentials";
     }
 
 
@@ -58,7 +61,7 @@ public class LoginController {
     @GetMapping("/logout")
     public String logout(HttpSession session){
         session.invalidate();
-        return "redirect:/";
+        return "redirect:/?loginErrorMsg=Logged Out";
     }
 
 
@@ -80,7 +83,13 @@ public class LoginController {
             return "register";
         }
 
+        if (userService.getUserNameList().contains(appUser.getUserName())){
+            ObjectError err = new ObjectError("globalError", "Username is already taken");
+            binding.addError(err);
+            return "register";
+        }
+
         userService.saveUser(appUser);
-        return "redirect:/";
+        return "redirect:/?loginErrorMsg=Registration successful";
     }
 }
