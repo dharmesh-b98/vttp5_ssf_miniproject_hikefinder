@@ -19,6 +19,7 @@ import vttp5_ssf_miniproject_HikeFinder.vttp5_ssf_miniproject_HikeFinder.model.H
 import vttp5_ssf_miniproject_HikeFinder.vttp5_ssf_miniproject_HikeFinder.model.HikeSpot;
 import vttp5_ssf_miniproject_HikeFinder.vttp5_ssf_miniproject_HikeFinder.service.HikeService;
 import vttp5_ssf_miniproject_HikeFinder.vttp5_ssf_miniproject_HikeFinder.service.HikeSpotService;
+import vttp5_ssf_miniproject_HikeFinder.vttp5_ssf_miniproject_HikeFinder.service.UserService;
 
 @Controller
 @RequestMapping("/hostedhikes")
@@ -26,6 +27,9 @@ public class HostedHikesController {
 
     @Autowired
     HikeService hikeService;
+
+    @Autowired
+    UserService userService;
 
     @Autowired
     HikeSpotService hikeSpotService;
@@ -85,7 +89,7 @@ public class HostedHikesController {
         }
 
         Hike hike = hikeService.getHike(hikeId);
-        if (hike.getHost().equals(userName)){
+        if (hike.getHost().equals(userName) || userService.getAppUser(sessionUserName).getRole().equals("ADMIN") ){
             hikeService.removeHike(hikeId);
         }
         
