@@ -20,7 +20,6 @@ public class HashRepo {
     @Qualifier(Constants.template02)
     private RedisTemplate<String, String> template;
 
-
     public void put(String key, String hashKey, String value){
         template.opsForHash().put(key, hashKey, value);
     }

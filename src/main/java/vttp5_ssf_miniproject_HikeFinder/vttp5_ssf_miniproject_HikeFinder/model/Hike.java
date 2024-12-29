@@ -10,7 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import jakarta.validation.constraints.*;
 
 public class Hike {
-    
+        
     @NotEmpty(message = "mandatory")
     private String id;
 
@@ -144,12 +144,12 @@ public class Hike {
     }
 
 
-
+    // Extra functions
     public Boolean contains(String userNameString){
             return usersJoined.contains(userNameString);
     }
     public Boolean isHost(String userNameString){
         return host.equals(userNameString);
-}
+    }
 
 }

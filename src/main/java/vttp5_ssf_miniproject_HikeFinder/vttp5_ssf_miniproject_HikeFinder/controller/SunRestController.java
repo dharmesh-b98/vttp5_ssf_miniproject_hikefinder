@@ -39,8 +39,7 @@ public class SunRestController {
             response.put("sunsetTime", sunsetTimeString);
             return ResponseEntity.ok(response);
 
-        } catch (Exception e) { //shall I remove??
-            // Handle errors
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body(Map.of("error", "Invalid datetime format"));
         }
     }

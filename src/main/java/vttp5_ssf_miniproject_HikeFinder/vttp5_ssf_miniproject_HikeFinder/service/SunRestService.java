@@ -23,7 +23,7 @@ public class SunRestService {
     
     RestTemplate restTemplate = new RestTemplate();
 
-
+    //getting sunrise and sunset timings
     public Long[] getLongSunTimings(Date dateTime, HttpSession session) throws ParseException{
         String apiResponse = getSunApiResponse(dateTime, session);
         JsonObject apiResultJson = convertApiResponsetoJson(apiResponse);
@@ -42,6 +42,7 @@ public class SunRestService {
     }
 
 
+    //adding date to suntime
     public Date addDateToSunTime(Date dateTime, String sunTimeString, Boolean isSunrise, HttpSession session) throws ParseException{
         if(isSunrise){
             if (sunTimeString.contains("PM")){
@@ -56,9 +57,9 @@ public class SunRestService {
 
         String combinedDateString = dateTimeString + "-" + sunTimeString + "_" + "UTC"; //timezone
         SimpleDateFormat combinedDateSDF = new SimpleDateFormat("yyyy-MM-dd-hh:mm:ss aa_z");
-        Date combinedDate = combinedDateSDF.parse(combinedDateString);//date and time of that correct instant in time(neeed to change to new timezone)
+        Date combinedDate = combinedDateSDF.parse(combinedDateString);
 
-        combinedDateSDF.setTimeZone(TimeZone.getTimeZone((String)session.getAttribute("timeZone")));//need to get dynamically
+        combinedDateSDF.setTimeZone(TimeZone.getTimeZone((String)session.getAttribute("timeZone")));
         String combinedDateString_NewTimeZone = combinedDateSDF.format(combinedDate);
         String[] splitTimeZoneString = combinedDateString_NewTimeZone.split("_");
 
@@ -69,6 +70,7 @@ public class SunRestService {
     }
 
 
+    //converting api response from string to json
     public JsonObject convertApiResponsetoJson(String response){
         JsonReader reader = Json.createReader(new StringReader(response));
         JsonObject responseJson = reader.readObject();
@@ -77,6 +79,7 @@ public class SunRestService {
     }
 
 
+    //getting response from sun timing api
     public String getSunApiResponse(Date dateTime,HttpSession session){
         String lat = (String) session.getAttribute("lat");
         String lng = (String) session.getAttribute("lng");
@@ -96,6 +99,4 @@ public class SunRestService {
         String response = responseEntity.getBody();
         return response;
     }
-
-    
 }

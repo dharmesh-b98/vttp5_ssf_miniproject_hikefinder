@@ -15,14 +15,12 @@ import vttp5_ssf_miniproject_HikeFinder.vttp5_ssf_miniproject_HikeFinder.constan
 
 @Service
 public class UserService {
-
     
     @Autowired
     HashRepo userRepo;
 
     @Autowired
     ValueRepo userValueRepo;
-
     
     //getting list of userNames
     public List<String> getUserNameList(){
@@ -31,6 +29,7 @@ public class UserService {
     }
 
 
+    //gets a user from redis
     public AppUser getAppUser(String UserName){
         String appUserJson = (String) userRepo.get(Constants.usersHashRedisKey, UserName);
         AppUser appUser = convertJsontoUser(appUserJson);
@@ -38,12 +37,14 @@ public class UserService {
     }
 
 
+    //save a user to redis
     public void saveUser(AppUser appUser){
         JsonObject userJson = convertUsertoJson(appUser);
         userRepo.put(Constants.usersHashRedisKey, appUser.getUserName(), userJson.toString());
     }
 
 
+    //checks if username exists and checks if password correct
     public Boolean checkLoginCredentials(String userName, String password){
         if (checkUserExists(userName)){
             if (checkPasswordCorrect(userName, password)){
@@ -54,13 +55,13 @@ public class UserService {
     }
 
 
-    //check if username exists during login
+    //check if username exists (helper)
     public Boolean checkUserExists(String userName){
         return userRepo.hasKey(Constants.usersHashRedisKey, userName);
     }
 
 
-    //check password during login
+    //check password (helper)
     public Boolean checkPasswordCorrect(String userName, String password){ //only if user exists
         String appUserJsonString = (String) userRepo.get(Constants.usersHashRedisKey, userName);
         AppUser appUser = convertJsontoUser(appUserJsonString);
@@ -103,7 +104,7 @@ public class UserService {
     }
 
 
-    //convert Json to user
+    //convert json to user
     public AppUser convertJsontoUser(String appUserJsonString){
         JsonReader reader = Json.createReader(new StringReader(appUserJsonString));
         JsonObject appUserJson= reader.readObject();

@@ -99,7 +99,7 @@ public class HikeSpotService {
     }
 
 
-    //get a hikespot
+    //get one hikespot
     public HikeSpot getHikeSpot(String hikeSpotName){
         String hikeSpotString = (String) hikeSpotRepo.get(Constants.hikeSpotHashRedisKey, hikeSpotName);
         HikeSpot hikeSpot = convertJsontoHikeSpot(hikeSpotString);
@@ -142,7 +142,7 @@ public class HikeSpotService {
     }
 
 
-    //initialising HikeSpots
+    //initialising hikespots into redis
     public void addHikeSpots() throws IOException{
         JsonArray hikeSpotJsonArray = getHikeSpotJsonArray(Constants.hikeSpotJsonDatapath);
         for (int i = 0; i < hikeSpotJsonArray.size(); i++){
@@ -152,6 +152,7 @@ public class HikeSpotService {
     }
 
     
+    //converting the read string into json array
     public JsonArray getHikeSpotJsonArray(String inputFilePath) throws IOException{
         String hikeSpotJsonString = ReadHikeSpotJson(new File(inputFilePath));
         JsonReader reader = Json.createReader(new StringReader(hikeSpotJsonString));
@@ -160,6 +161,7 @@ public class HikeSpotService {
     }
 
 
+    //reading hikespotjson file
     public String ReadHikeSpotJson(File inputFilePath) throws IOException{
 		FileReader fr = new FileReader(inputFilePath);
 		BufferedReader br = new BufferedReader(fr);

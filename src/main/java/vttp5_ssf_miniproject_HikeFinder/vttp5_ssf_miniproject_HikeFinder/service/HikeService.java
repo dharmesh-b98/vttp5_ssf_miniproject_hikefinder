@@ -26,6 +26,7 @@ public class HikeService {
     @Autowired
     HikeSpotService hikeSpotService;
 
+    //join a hike
     public void joinHike(String userName, String hikeId){
         Hike hike = getHike(hikeId);
         List<String> usersJoined = hike.getUsersJoined();
@@ -39,7 +40,7 @@ public class HikeService {
     }
 
 
-
+    //unjoin a hike
     public void unjoinHike(String userName, String hikeId){
         Hike hike = getHike(hikeId);
         List<String> usersJoined = hike.getUsersJoined();
@@ -52,25 +53,27 @@ public class HikeService {
     }
 
 
-
+    //save a hike
     public void saveHike(Hike hike){
         JsonObject hikeJson = convertHikeToJson(hike);
         hikeRepo.put(Constants.hikeHashRedisKey,hike.getId(),hikeJson.toString());
     }
 
 
-
+    //remove a hike
     public void removeHike(String id){
         hikeRepo.delete(Constants.hikeHashRedisKey, id);
     }
 
 
+    //get country of a hike
     public String getHikeCountry(String hikeSpotName){
         HikeSpot hikeSpot = hikeSpotService.getHikeSpot(hikeSpotName);
         return hikeSpot.getCountry();
     }
 
 
+    //get one hike
     public Hike getHike(String id){
         String hikeJsonString = (String) hikeRepo.get(Constants.hikeHashRedisKey, id);
         Hike hike = convertJsonToHike(hikeJsonString);
@@ -78,6 +81,7 @@ public class HikeService {
     }
 
 
+    //filterring hikespots by username
     public List<Hike> getPersonalHostedHikeList(String userName){
         List<Hike> hikeList = getHikeList();
         List<Hike> personalHostedHikeList = hikeList.stream().filter(hike -> hike.getHost().equals(userName)).toList();
@@ -85,7 +89,7 @@ public class HikeService {
     }
 
 
-    //filtering hike spots by country
+    //filtering hikelist by country
     public List<Hike> getFilteredHikeList(String filterBy){
         List<Hike> hikeList = getHikeList();
         List<Hike> filteredHikeList = new ArrayList<>();
@@ -100,6 +104,7 @@ public class HikeService {
     }
 
 
+    //getting hikelist
     public List<Hike> getHikeList(){
         List<String> hikeListJson = hikeRepo.values(Constants.hikeHashRedisKey);
 
@@ -112,6 +117,7 @@ public class HikeService {
     }
 
       
+    //converting json to hike
     public Hike convertJsonToHike(String hikeJsonString){
         JsonReader reader = Json.createReader(new StringReader(hikeJsonString));
         JsonObject hikeJson = reader.readObject();
@@ -142,7 +148,7 @@ public class HikeService {
     }
 
 
-
+    //converting hike to json
     public JsonObject convertHikeToJson(Hike hike){
         String dateTimeLongString = String.valueOf(hike.getDateTime().getTime());
         String sunriseTimeLongString = String.valueOf(hike.getSunriseTime().getTime());

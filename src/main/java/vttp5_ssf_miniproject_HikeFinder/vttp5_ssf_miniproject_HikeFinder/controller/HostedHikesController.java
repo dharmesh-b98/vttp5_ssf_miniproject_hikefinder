@@ -52,12 +52,11 @@ public class HostedHikesController {
         model.addAttribute("hikeSpotName", hikeSpotName);
 
         HikeSpot hikeSpot = hikeSpotService.getHikeSpot(hikeSpotName);
-        session.setAttribute("lat", hikeSpot.getLat().toString());
+        session.setAttribute("lat", hikeSpot.getLat().toString());// to be used by functions in SunRestService
         session.setAttribute("lng", hikeSpot.getLng().toString());
         session.setAttribute("timeZone", hikeSpot.getTimeZone());
         return "addhikeform";
     }
-
 
 
     //Add Hikes POST
@@ -77,8 +76,7 @@ public class HostedHikesController {
     }
 
 
-
-    //Remove Hike GET
+    //Remove Hike GET (button in profile)
     @GetMapping("{userName}/{user}/removeHike/{hikeId}")
     public String addHikePost( @PathVariable("userName") String userName, @PathVariable("user") String user, @PathVariable("hikeId") String hikeId, HttpSession session){
         String sessionUserName = (String) session.getAttribute("userName");
@@ -93,7 +91,6 @@ public class HostedHikesController {
         
         return "redirect:/user/" + userName + "/" + user;
     }
-
 
 
     //Get HikeList
@@ -113,7 +110,6 @@ public class HostedHikesController {
     }
 
     
-
     //Join Hike
     @GetMapping("{userName}/join/{hikeId}")
     public String joinHike(@PathVariable("userName") String userName, @PathVariable("hikeId") String hikeId, HttpSession session){

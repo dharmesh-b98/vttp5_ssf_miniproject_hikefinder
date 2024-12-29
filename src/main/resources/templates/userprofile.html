@@ -189,10 +189,10 @@
 
         <section class="userinfo-section">
         <img src="https://freesvg.org/img/userMale.png" alt="User Profile Picture" width="100" height="auto">
-        <h4 data-th-text = "${appUser.userName}"></h4>
+        <h4 data-th-text = "${user}"></h4>
         </section>
 
-        <h3> Hikes Hosted by <span data-th-text = "${appUser.userName}"></span></h3>
+        <h3> Hikes Hosted by <span data-th-text = "${user}"></span></h3>
         
         <section class="list-section">
             <div id="hostedhikelist" data-th-if = "${personalHostedHikeList.size() gt 0}">
@@ -223,10 +223,10 @@
                                     <li><a class="usersjoined-button btn" data-th-text="${userJoin}" data-th-href="@{/user/{userName}/{user}(userName=${userName}, user=${userJoin})}"></a></li>
                                 </ul>   
                             </td>
-                            <div data-th-if="${hike.isHost(userName)}">
+                            <div data-th-if="${ownProfile}">
                                 <td><a class="unhost-button btn" data-th-href="@{/hostedhikes/{userName}/{user}/removeHike/{hikeId}(userName=${userName},user=${user},hikeId=${hike.id})}">Remove</a></td>
                             </div>
-                            <div data-th-unless="${hike.isHost(userName)}">
+                            <div data-th-unless="${ownProfile}">
                                 <td>You are not<br/>the host</td>
                             </div>
                         </tr>

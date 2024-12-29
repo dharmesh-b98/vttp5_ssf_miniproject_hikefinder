@@ -32,7 +32,6 @@ public class LoginController {
     @Autowired
     HikeSpotService hikeSpotService;
 
-
     //Login GET
     @GetMapping("/")
     public String showLogin(@RequestParam(name="loginErrorMsg", defaultValue="") String loginErrorMsg, Model model) throws IOException{
@@ -40,7 +39,6 @@ public class LoginController {
         return "login";
     }
     
-
 
     //Login POST
     @PostMapping("")
@@ -56,14 +54,12 @@ public class LoginController {
     }
 
 
-
     //Logout
     @GetMapping("/logout")
     public String logout(HttpSession session){
         session.invalidate();
         return "redirect:/?loginErrorMsg=Logged Out";
     }
-
 
 
     //Register GET
@@ -73,7 +69,6 @@ public class LoginController {
         model.addAttribute("appUser", appUser);
         return "register";
     }
-
 
 
     //Register POST
