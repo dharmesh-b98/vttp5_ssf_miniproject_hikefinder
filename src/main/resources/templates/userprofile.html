@@ -43,6 +43,10 @@
                 left:200px;
             
             }
+
+            #admininfo-link{
+                float: right;
+            }
             
             #hikespots-link{
                 left:200px;
@@ -180,7 +184,10 @@
             <a class="header-link btn" id="hostedhike-link" data-th-href="@{/hostedhikes/{userName}/hostedHikeList(userName=${userName})}"><i class="bi bi-backpack3-fill"></i> Hosted Hikes</a>
             <a class="header-link btn" id="logout-link" data-th-href="@{/logout}"><i class="bi bi-box-arrow-left"></i> Logout</a>
             <a class="header-link btn" id="username-link" data-th-href="@{/user/{userName}/{user}(userName=${userName}, user=${userName})}" data-th-text="${userName}"></a>
+            <a data-th-if="${isAdmin}" class="header-link btn" id="admininfo-link" data-th-href="@{/adminInfo/{userName}(userName=${userName})}">All Users Info</a>
+            
         </header>
+        
 
         <img id="logo" src="/images/logo.png">
         

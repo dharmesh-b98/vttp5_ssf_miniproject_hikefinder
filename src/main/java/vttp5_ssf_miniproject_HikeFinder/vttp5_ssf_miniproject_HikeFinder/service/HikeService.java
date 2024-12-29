@@ -13,6 +13,7 @@ import jakarta.json.JsonObject;
 import jakarta.json.JsonObjectBuilder;
 import jakarta.json.JsonReader;
 import vttp5_ssf_miniproject_HikeFinder.vttp5_ssf_miniproject_HikeFinder.constants.Constants;
+import vttp5_ssf_miniproject_HikeFinder.vttp5_ssf_miniproject_HikeFinder.model.AppUser;
 import vttp5_ssf_miniproject_HikeFinder.vttp5_ssf_miniproject_HikeFinder.model.Hike;
 import vttp5_ssf_miniproject_HikeFinder.vttp5_ssf_miniproject_HikeFinder.model.HikeSpot;
 import vttp5_ssf_miniproject_HikeFinder.vttp5_ssf_miniproject_HikeFinder.repo.HashRepo;
@@ -25,6 +26,9 @@ public class HikeService {
 
     @Autowired
     HikeSpotService hikeSpotService;
+
+    @Autowired
+    UserService userService;
 
     //join a hike
     public void joinHike(String userName, String hikeId){
@@ -56,12 +60,30 @@ public class HikeService {
     //save a hike
     public void saveHike(Hike hike){
         JsonObject hikeJson = convertHikeToJson(hike);
+        
+        String host = hike.getHost();
+        AppUser appUser = userService.getAppUser(host);
+        List<String> hostedHikes = appUser.getHostedHikes();
+        if (!(hostedHikes.contains(hike.getId()))){
+            hostedHikes.add(hike.getId());
+        }
+        appUser.setHostedHikes(hostedHikes);
+        userService.saveUser(appUser);
+
         hikeRepo.put(Constants.hikeHashRedisKey,hike.getId(),hikeJson.toString());
     }
 
 
     //remove a hike
     public void removeHike(String id){
+        Hike hike = getHike(id);
+        String host = hike.getHost();
+        AppUser appUser = userService.getAppUser(host);
+        List<String> hostedHikes = appUser.getHostedHikes();
+        hostedHikes.remove(hike.getId());
+        appUser.setHostedHikes(hostedHikes);
+        userService.saveUser(appUser);
+
         hikeRepo.delete(Constants.hikeHashRedisKey, id);
     }
 
@@ -113,6 +135,7 @@ public class HikeService {
             Hike hike = convertJsonToHike(hikeJson);
             hikeList.add(hike);
         }
+
         return hikeList;
     }
 

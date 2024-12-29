@@ -21,6 +21,7 @@ public class UserService {
 
     @Autowired
     ValueRepo userValueRepo;
+
     
     //getting list of userNames
     public List<String> getUserNameList(){
@@ -28,7 +29,7 @@ public class UserService {
        return userNameList;
     }
 
-
+    
     //gets a user from redis
     public AppUser getAppUser(String UserName){
         String appUserJson = (String) userRepo.get(Constants.usersHashRedisKey, UserName);
@@ -72,7 +73,7 @@ public class UserService {
         return false;
     }
 
-
+    
     //initialise a userList (used in command line runner)
     public void initialiseUserList(String adminUserName, String adminPassword){
         Boolean userListExists = userValueRepo.checkExists(Constants.usersHashRedisKey);

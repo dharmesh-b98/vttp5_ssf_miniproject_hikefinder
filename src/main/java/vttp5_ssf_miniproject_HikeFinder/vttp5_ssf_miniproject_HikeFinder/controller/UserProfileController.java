@@ -32,13 +32,20 @@ public class UserProfileController {
         }     
 
         Boolean ownProfile = false;
-        if (userName.equals(user)|| userService.getAppUser(userName).getRole().equals("ADMIN")){
+        if (userName.equals(user)){
             ownProfile=true;
+        }
+
+        Boolean isAdmin = false;
+        if (userService.getAppUser(userName).getRole().equals("ADMIN")){
+            ownProfile=true;
+            isAdmin= true;
         }
 
         List<Hike> personalHostedHikeList = hikeService.getPersonalHostedHikeList(user);
         
         model.addAttribute("ownProfile", ownProfile);
+        model.addAttribute("isAdmin", isAdmin);
         model.addAttribute("user", user);
         model.addAttribute("userName", userName);
         model.addAttribute("personalHostedHikeList", personalHostedHikeList);
